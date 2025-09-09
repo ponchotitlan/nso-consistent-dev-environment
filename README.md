@@ -314,30 +314,6 @@ reload-result {
     package resource-manager
     result true
 }
-reload-result {
-    package cisco-asa-cli-6.18
-    result true
-}
-reload-result {
-    package cisco-ios-cli-6.109
-    result true
-}
-reload-result {
-    package cisco-iosxr-cli-7.69
-    result true
-}
-reload-result {
-    package cisco-nx-cli-5.27
-    result true
-}
-reload-result {
-    package demo-rfs
-    result true
-}
-reload-result {
-    package resource-manager
-    result true
-}
 ```
 
 **✅ Your environment is ready for use!** You can verify your containers with the following command:
