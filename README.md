@@ -1,4 +1,8 @@
-<h1 align="center">🛠️📦 NSO Consistent Development Environment
+<h1 align="center">🛠️📦 NSO Consistent Development Environment<br /><br />
+<div align="center">
+<img src="doc-images/nso_consistent_env_logo.png" width="500"/>
+</div>
+
 <div align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&labelColor=555555&logoColor=white" alt="Docker"/>
   <img src="https://img.shields.io/badge/Bash-Script-blue" alt="Bash"/>
