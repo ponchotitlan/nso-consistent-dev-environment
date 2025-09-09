@@ -2,7 +2,7 @@ nso-base: cisco-nso-prod:6.5
 nso-image: my-nso-custom-dev
 nso-name: my-nso-dev
 
-cxta-base: dockerhub.cisco.com/cxta-docker/cxta:latest
+cxta-base: cxta:latest
 cxta-name: my-cxta-dev
 
 downloads:

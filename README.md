@@ -58,7 +58,7 @@ The `docker-compose.yml` defines two key services:
 *   **`my-cxta-dev`**:
     A CXTA container (`dockerhub.cisco.com/cxta-docker/cxta:latest`). It also mounts the `packages` directory for test automation.
 
-> The `cxta` docker image is not available for public use. It needs to be acquired via Cisco services.
+> 💡 The `cxta` docker image is not available for public use. It needs to be acquired via Cisco services.
 
 ## 🚀 Getting Started
 
@@ -68,7 +68,7 @@ Ensure you have the following installed:
 *   [Docker Compose](https://docs.docker.com/compose/install/)
 *   [Make](https://www.gnu.org/software/make/)
 
-> This project can only run in **Linux-based** environments. The project relies on `Makefile` targets for its operation, which are not compatible with Windows OS. 
+> 💡 This project can only run in **Linux-based** environments. The project relies on `Makefile` targets for its operation, which are not compatible with Windows OS. 
 
 ### 1. Clone this repository
 Issue the following command to clone this repository in your host computer or remote virtual machine intended to be your dev environment:
@@ -78,7 +78,7 @@ git clone https://github.com/ponchotitlan/nso-consistent-dev-environment.git
 ```
 
 ### 2. Download and install the official NSO Docker Image
-> For this demo, we will be using the NSO Production Docker Image for Free Trial. If you already have a commercial-use image installed in your development environment, you can skip [to this part of the guide]().
+> 💡 For this demo, we will be using the NSO Production Docker Image for Free Trial. If you already have a commercial-use image installed in your development environment, you can skip [to this part of the guide](https://github.com/ponchotitlan/nso-consistent-dev-environment/tree/main?tab=readme-ov-file#3-configure-requirementstxt).
 
 The official NSO Docker Image is not available in any public container repository. Therefore, it needs to be manually downloaded from the Cisco Software Central and installed in your environment.
 
@@ -136,7 +136,7 @@ The artifacts you wish to download during the image build. The URLs must point t
 - `skip-compilation`
 The artifacts that don't need to be compiled during the onboarding process. Ideally, all artifacts come already compiled, however there might be the case that you need to compile any in the container image building process.
 
-> For this demo, we are using NEDs from the [Cisco Software Central - Crosswork Network Services Orchestrator Free Trial](https://software.cisco.com/download/home/286331591/type/286283941/release) already pre-loaded as releases in a public repository to emulate downloading from an Artifact Server.
+> 💡 For this demo, we are using NEDs from the [Cisco Software Central - Crosswork Network Services Orchestrator Free Trial](https://software.cisco.com/download/home/286331591/type/286283941/release) already pre-loaded as releases in a public repository to emulate downloading from an Artifact Server.
 
 ```yaml
 nso-base: cisco-nso-prod:6.5
@@ -179,7 +179,7 @@ The `Makefile` provides convenient commands to manage your custom NSO environmen
 
 Example:
 
-> **All the following commands are equivalent to just running `make`.** They are described individually here for documentation purposes. If you want to run everything at once, just type `make` and that's it.
+> 💡 **All the following commands are equivalent to just running `make`.** They are described individually here for documentation purposes. If you want to run everything at once, just type `make` and that's it.
 
 ### 1. Rendering the templates
 ```bash
@@ -192,7 +192,7 @@ make render
 
 The files `docker-compose.yml` and `Dockerfile` were just created in the root directory of this repository with the information provided in the `config/yaml` file.
 
-> If your image is not hosted in a registry (it doesn't have a URL), the prefix `localhost:5000/` will be appended in all the rendered files
+> 💡 If your image is not hosted in a registry (it doesn't have a URL), the prefix `localhost:5000/` will be appended in all the rendered files
 
 ```bash
 ...
@@ -204,7 +204,7 @@ This step is necessary if you downloaded and onboarded the NSO free demo image i
 
 Nevertheless, if the image that you provided in the `config.yaml` file is already registered somewhere (aka. has a URL prefix), this step does nothing.
 
-> This step is needed if your image is not hosted in a registry becauce otherwise it wouldn't be possible to use it in a Dockerfile. By default, docker tries to append a URL if the image name doesn't have one.
+> 💡 This step is needed if your image is not hosted in a registry becauce otherwise it wouldn't be possible to use it in a Dockerfile. By default, docker tries to append a URL if the image name doesn't have one.
 
 ```bash
 make register
@@ -253,7 +253,7 @@ To verify, use the following command with the name provided in the `config.yaml`
 my-nso-custom-dev                      latest    f868374843d7   2 minutes ago   1.79GB
 ```
 
-> Note that if you create containers based on this image, it will not download anything unless the list in `config.yaml` changes. This saves plenty of time and effort when spinning up new containers.
+> 💡 Note that if you create containers based on this image, it will not download anything unless the list in `config.yaml` changes. This saves plenty of time and effort when spinning up new containers.
 
 ### 4. Running your Docker Compose services
 ```bash
@@ -420,7 +420,9 @@ All your services are gone now.
 
 Depending on the amount of artifacts and services, the initial `packages reload force` of the container might take a while. To verify the progress, you can open the logs of your container in persistent mode:
 
-`docker logs -f my_nso_container_name`
+```bash
+docker logs -f my_nso_container_name
+```
 
 `⚠️ Why sometimes my NSO container fails to become healthy?`
 
@@ -447,10 +449,10 @@ A dedicated linux-based VM or cloud environment should provide a stable behaviou
     <a href="mailto:alfsando@cisco.com?subject=Question%20about%20[NSO%20Consistent%20Dev%20Env]&body=Hello,%0A%0AI%20have%20a%20question%20regarding%20your%20project.%0A%0AThanks!">
         <img src="https://img.shields.io/badge/Contact%20me!-blue?style=flat&logo=gmail&labelColor=555555&logoColor=white" alt="Contact Me via Email!"/>
     </a>
-    <a href="https://github.com/ponchotitlan/radkit-to-grafana-dash/issues/new">
+    <a href="https://github.com/ponchotitlan/nso-consistent-dev-environment/issues/new">
       <img src="https://img.shields.io/badge/Open%20Issue-2088FF?style=flat&logo=github&labelColor=555555&logoColor=white" alt="Open an Issue"/>
     </a>
-    <a href="https://github.com/ponchotitlan/radkit-to-grafana-dash/fork">
+    <a href="https://github.com/ponchotitlan/nso-consistent-dev-environment/fork">
       <img src="https://img.shields.io/badge/Fork%20Repository-000000?style=flat&logo=github&labelColor=555555&logoColor=white" alt="Fork Repository"/>
     </a>
 </div>
