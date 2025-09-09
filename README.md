@@ -1,4 +1,4 @@
-<h1 align="center">🛠️📦 NSO Consistent Development Environment - <code>Use Case and Tooling</code>
+<h1 align="center">🛠️📦 NSO Consistent Development Environment
 <div align="center">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&labelColor=555555&logoColor=white" alt="Docker"/>
   <img src="https://img.shields.io/badge/Bash-Script-blue" alt="Bash"/>
@@ -13,7 +13,7 @@ A series of tools and recommendations for building standardized, container-based
 ## ✨ Overview
 `(Based on real-life experiences)`. You join a Network Automation project with Cisco NSO, eager to start coding services right away. But first, you need your own setup to get that code flowing. Suddenly, you find yourself losing days wrangling with scattered docs, mismatched libraries, broken sources, and confusing steps just to piece your environment together. Instead of automating, you’re stuck troubleshooting, chasing quick fixes, and asking colleagues what worked for them.
 
-With this in mind, this project collects a series of good practices and tooling to leverage the deployment of Cisco NSO development environment in a versionable and swift way.
+With this in mind, this project collects a series of good practices and tooling to leverage the deployment of a Cisco NSO development environment in a versionable and swift way.
 
 The following diagram shows the components of this project:
 
