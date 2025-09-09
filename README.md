@@ -96,13 +96,10 @@ Among the unpacked files, there should be a _.tar.gz_ file, which is the actual 
 docker load < nso-6.5.container-image-prod.linux._your_arch_.tar.gz
 ```
 
-The image should now be available in your environment. To verify, issue this command:
+✅ The image should now be available in your environment. To verify, issue this command:
 
 ```bash
-docker images | grep cisco-nso-prod
-```
-
-```bash
+% docker images | grep cisco-nso-prod
 cisco-nso-prod                                    6.5       799772f04d48   4 months ago   1.59GB
 ```
 
@@ -222,7 +219,7 @@ make register
 --- 📤 Image pushed to local registry successfully. ---
 ```
 
-Just to verify, the following command shows the active local registry container:
+✅ Just to verify, the following command shows the active local registry container:
 
 ```bash
 % docker ps | grep registry
@@ -246,7 +243,7 @@ The credentials are stored in a safe file (which will later be deleted) and moun
 
 Your artifacts are downloaded and extracted in `opt/ncs/packages`. Your image is ready to be used!
 
-To verify, use the following command with the name provided in the `config.yaml` file:
+✅ To verify, use the following command with the name provided in the `config.yaml` file:
 
 ```bash
 % docker images | grep my-nso-custom-dev
