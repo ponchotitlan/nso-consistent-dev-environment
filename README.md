@@ -318,8 +318,6 @@ reload-result {
 
 **✅ Your environment is ready for use!** You can verify your containers with the following command:
 
-`docker ps`
-
 ```bash
 % docker ps
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED        STATUS                    PORTS                                            NAMES
