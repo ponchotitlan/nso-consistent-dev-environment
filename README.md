@@ -11,11 +11,14 @@
 </div></h1>
 
 <div align="center">
-A series of tools and recommendations for building standardized, container-based Cisco NSO environments tailored for Network Automation development projects.<br /><br />
+A series of tools and recommendations for building standardized, container-based Cisco NSO environments tailored for Network Automation development projects.<br />
+<code>aka. Helping you, fellow NSO developer, to get started coding faster</code><br />
 </div>
 
 ## ✨ Overview
-`(Based on real-life experiences)`. You join a Network Automation project with Cisco NSO, eager to start coding services right away. But first, you need your own setup to get that code flowing. Suddenly, you find yourself losing days wrangling with scattered docs, mismatched libraries, broken sources, and confusing steps just to piece your environment together. Instead of automating, you’re stuck troubleshooting, chasing quick fixes, and asking colleagues what worked for them.
+**Based on real-life experiences**.
+
+You join a Network Automation project with Cisco NSO, eager to start coding services right away. But first, **you need your own setup to get that code flowing**. Suddenly, you find yourself losing days wrangling with scattered docs, mismatched libraries, broken sources, and confusing steps just to piece your environment together. Instead of automating, you’re stuck troubleshooting, chasing quick fixes, and asking colleagues what worked for them.
 
 With this in mind, this project collects a series of good practices and tooling to leverage the deployment of a Cisco NSO development environment in a versionable and swift way.
 
