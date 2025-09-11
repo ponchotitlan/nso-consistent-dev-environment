@@ -49,6 +49,7 @@ Without committing a new container image, the features of the official image are
 | `ncs/ncs.conf`*        | Custom ncs.conf for your NSO container. Mounted in `/nso/etc`       |
 | `packages/`           | Your versioned NSO packages. Mounted in `/nso/run/packages` |
 | `setup/`              | Bash scripts for template rendering and custom NSO image building        |
+| `preconfigs/`           | Your XML files with NSO pre-configurations (there is a xml for netsim authgroup now). Mounted in `/tmp/nso` |
 
 *About the included `ncs/ncs.conf` file: It contains the configurations to mount two directories for the `NSO packages`:
 * `/opt/ncs/packages` for the NEDs and artifacts in general
@@ -163,6 +164,20 @@ skip-compilation:
   - cisco-ios-cli-6.109
   - cisco-asa-cli-6.18
   - cisco-nx-cli-5.27
+
+netsims:
+  cisco-iosxr-cli-7.69:
+    - asr9k-xr-7601
+    - ncs5k-xr-5702
+  cisco-ios-cli-6.109:
+    - router-ios-01
+    - switch-ios-01
+  cisco-asa-cli-6.18:
+    - asa-fw-01
+    - asa-virtual-02
+  cisco-nx-cli-5.27:
+    - nexus-9000-01
+    - nexus-7000-02
 ---
 ```
 
@@ -179,6 +194,7 @@ The `Makefile` provides convenient commands to manage your custom NSO environmen
 | `make run` 🚀 | Starts Docker Compose services with health checks. |
 | `make compile` 🛠️ | Compiles your services using the NSO container. |
 | `make reload` 🔀 | Reloads all the services by running the `packages reload` command in the NSO container CLI. |
+| `make netsims` 🛸 | Loads the preconfiguration files from the repository and creates/onboards the netsim devices. |
 | `make down` 🛑 | Stops Docker Compose services. |
 
 Example:
@@ -323,10 +339,72 @@ reload-result {
 }
 ```
 
+```bash
+make netsims
+```
+
+```bash
+--- ⬇️ Loading preconfiguration files ---
+...
+[⬇️] Loading done!
+--- 🛸 Loading netsims ---
+...
+DEVICE dummy0 OK STARTED
+DEVICE asr9k-xr-7601 OK STARTED
+DEVICE ncs5k-xr-5702 OK STARTED
+DEVICE router-ios-01 OK STARTED
+DEVICE switch-ios-01 OK STARTED
+DEVICE asa-fw-01 OK STARTED
+DEVICE asa-virtual-02 OK STARTED
+DEVICE nexus-9000-01 OK STARTED
+DEVICE nexus-7000-02 OK STARTED
+...
+sync-result {
+    device asa-fw-01
+    result true
+}
+sync-result {
+    device asa-virtual-02
+    result true
+}
+sync-result {
+    device asr9k-xr-7601
+    result true
+}
+sync-result {
+    device dummy0
+    result true
+}
+sync-result {
+    device ncs5k-xr-5702
+    result true
+}
+sync-result {
+    device nexus-7000-02
+    result true
+}
+sync-result {
+    device nexus-9000-01
+    result true
+}
+sync-result {
+    device router-ios-01
+    result true
+}
+sync-result {
+    device switch-ios-01
+    result true
+}
+[🛸] Loading done!
+```
+
+Your netsim devices specified in the `config.yaml` file are created, started, onboarded in the NSO container, and synced.
+
 **✅ Your environment is ready for use!** You can verify your containers with the following command:
 
 ```bash
 % docker ps
+
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED        STATUS                    PORTS                                            NAMES
 a5ee6114e149   my-nso-custom-dev                             "/run-nso.sh"            17 hours ago   Up 11 minutes (healthy)   0.0.0.0:2022->2022/tcp, 0.0.0.0:8080->8080/tcp   my-nso-dev
 76f4de91d18c   dockerhub.cisco.com/cxta-docker/cxta:latest   "/docker-entrypoint.…"   17 hours ago   Up 12 minutes                                                              my-cxta-dev
@@ -337,6 +415,7 @@ f8f892c7cd3b   registry:2                                    "/entrypoint.sh /et
 
 ```bash
 % docker exec my-nso-dev /bin/bash -c "echo 'show packages package * oper-status | tab' | ncs_cli -Cu admin"
+
                                                                                                         PACKAGE                          
                           PROGRAM                                                                       META     FILE                    
                           CODE     JAVA           PYTHON         BAD NCS  PACKAGE  PACKAGE  CIRCULAR    DATA     LOAD   ERROR            
@@ -353,7 +432,8 @@ resource-manager      X   -        -              -              -        -     
 ✅ Your artifacts and NEDs are in a different location:
 
 ```bash
-% docker exec my-nso-dev /bin/bash -c "ls -lh /opt/ncs/packages"                                            
+% docker exec my-nso-dev /bin/bash -c "ls -lh /opt/ncs/packages"  
+
 total 20K
 drwxr-xr-x  8 9001 users 4.0K May 15 09:00 cisco-asa-cli-6.18
 drwxr-xr-x  8 9001 users 4.0K May  8 12:20 cisco-ios-cli-6.109
@@ -365,8 +445,26 @@ drwxr-xr-x 11 root root  4.0K Sep  8 15:42 resource-manager
 ✅ Your services under development are in this mounted volume, mapped to your repository:
 ```bash
 % docker exec my-nso-dev /bin/bash -c "ls -lh /nso/run/packages"
+
 total 0
 drwxr-xr-x 8 nso root 256 Sep  2 15:44 demo-rfs
+```
+
+✅ Finally, your netsim devices are onboarded and synced:
+```bash
+% docker exec my-nso-dev /bin/bash -c "echo 'show devices list' | ncs_cli -Cu admin"
+
+NAME            ADDRESS    DESCRIPTION  NED ID                ADMIN STATE  
+-------------------------------------------------------------------------
+asa-fw-01       127.0.0.1  -            cisco-asa-cli-6.18    unlocked     
+asa-virtual-02  127.0.0.1  -            cisco-asa-cli-6.18    unlocked     
+asr9k-xr-7601   127.0.0.1  -            cisco-iosxr-cli-7.69  unlocked     
+dummy0          127.0.0.1  -            cisco-iosxr-cli-7.69  unlocked     
+ncs5k-xr-5702   127.0.0.1  -            cisco-iosxr-cli-7.69  unlocked     
+nexus-7000-02   127.0.0.1  -            cisco-nx-cli-5.27     unlocked     
+nexus-9000-01   127.0.0.1  -            cisco-nx-cli-5.27     unlocked     
+router-ios-01   127.0.0.1  -            cisco-ios-cli-6.109   unlocked     
+switch-ios-01   127.0.0.1  -            cisco-ios-cli-6.109   unlocked 
 ```
 
 ### 5. Accesing your environment
@@ -419,6 +517,12 @@ A dedicated linux-based VM or cloud environment should provide a stable behaviou
 ## 🔮 Future work
 
 - Onboarding of this framework in a cloud-based environment for on demand creation without any host nor VM (ex. GitHub Codespaces)
+
+## 📚 References
+
+- [Cisco Crosswork NSO documentation](https://nso-docs.cisco.com/)
+- [Get started with service development](https://nso-docs.cisco.com/guides/development/introduction-to-automation/develop-a-simple-service)
+- [DEVNET-2224: Embracing DevOps for my NSO Use Cases lifecycle. Cisco Live EMEA 2025](https://github.com/ponchotitlan/embracing-devops-nso-usecase-lifecycle)
 
 ---
 
