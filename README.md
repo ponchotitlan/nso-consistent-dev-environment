@@ -11,7 +11,7 @@
 </div></h1>
 
 <div align="center">
-A series of tools and recommendations for building standardized, container-based Cisco NSO environments tailored for Network Automation development projects.<br />
+A series of tools and recommendations for building standardized, container-based Cisco NSO environments tailored for Network Automation development projects.<br /><br />
 <code>aka. Helping you, fellow NSO developer, to get started coding faster</code><br />
 </div>
 
@@ -142,6 +142,10 @@ The artifacts you wish to download during the image build. The URLs must point t
 The artifacts that don't need to be compiled during the onboarding process. Ideally, all artifacts come already compiled, however there might be the case that you need to compile any in the container image building process.
 
 > 💡 For this demo, we are using NEDs from the [Cisco Software Central - Crosswork Network Services Orchestrator Free Trial](https://software.cisco.com/download/home/286331591/type/286283941/release) already pre-loaded as releases in a public repository to emulate downloading from an Artifact Server.
+
+#### Netsim fields
+- `netsims > NED_name > [netsims names]`
+The specification of the netsim devices that you need per NED. A netsim device will be created and named based on this yaml.
 
 ```yaml
 nso-base: cisco-nso-prod:6.5
