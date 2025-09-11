@@ -191,7 +191,7 @@ The `Makefile` provides convenient commands to manage your custom NSO environmen
 
 | Command | Description |
 |---|---|
-| `make` 🌟 | Default target: builds and then starts all services using the `render`, `register`, `build`, `run`, `compile` and `reload` targets.  |
+| `make` 🌟 | Default target: builds and then starts all services using the `render`, `register`, `build`, `run`, `compile`, `reload` and `netsims` targets.  |
 | `make render` ✨ | Renders the templates `docker-compose.j2` and `Dockerfile.j2`. |
 | `make register` 📤 | Mounts a local Docker registry for the NSO container image if your NSO base image is not registered anywhere. |
 | `make build` 🏗️ | Builds the NSO custom Docker image with BuildKit secrets. |
